@@ -1,9 +1,4 @@
-<table>
-<style>
-  table td {
-    border: none !important;
-  }
-</style>
+<table style="border: none !important">
   <tr>
     <td>
       <img src="statics/logo.png" alt="Truthness Logo" width="60">
