@@ -1,9 +1,9 @@
 <table style="border: none !important">
-  <tr>
-    <td>
+  <tr style="border: none !important">
+    <td style="border: none !important">
       <img src="statics/logo.png" alt="Truthness Logo" width="60">
     </td>
-    <td>
+    <td style="border: none !important">
       <h1>truthness</h1>
     </td>
   </tr>
