@@ -1,10 +1,15 @@
+<style>
+  table td {
+    border: none !important;
+  }
+</style>
 <table>
   <tr>
     <td>
       <img src="statics/logo.png" alt="Truthness Logo" width="60">
     </td>
     <td>
-      <h1>Truthness</h1>
+      <h1>truthness</h1>
     </td>
   </tr>
 </table>
