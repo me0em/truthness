@@ -6,22 +6,20 @@ from truthness.metrics.base import Metric
 from truthness.utils import CustomJSONParser, load_config
 
 
-class IntersectionOverUnionMetric(Metric):
+class IntersectionOverCartesianMetric(Metric):
+    """ Implementation of Intersaction over Cartesian metric.
+        This metric is straight alternative to classic IoU.
+        Each passage, i.e. answer from golden dataset,
+        and RAG generation, are decomposes on set of facts,
+        then we calculate proportion of similar pairs
+        in the all pairs.
+        """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     def __call__(self,
                  y_true: list[str],
                  y_pred: list[str]) -> float:
-        """ Naive implementation of IoU
-        Each passage, i.e. answer from golden dataset,
-        and RAG generation, are decomposes on set of facts,
-        then we measure IoU between them.
-
-        Approach is naive, because theoretically LLM can
-        score one fact two or more times because of incorrect
-        comparison or incorrect facts extraction.
-        """
         chain = self.model | CustomJSONParser()
         system_prompt = self.prompts.facts_equal.get(self.language)
 

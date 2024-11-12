@@ -3,13 +3,13 @@ import glob
 
 from truthness.facts import extract
 from truthness.utils import get_model
-from truthness.metrics import IntersectionOverUnionMetric
+from truthness.metrics import IntersectionOverCartesianMetric
 
 model = get_model(model_name="gpt-4o-mini")
 
 paths = glob.glob("data/*.json")
 print(paths)
-iou = IntersectionOverUnionMetric(model=model, language="ru")
+ioc = IntersectionOverCartesianMetric(model=model, language="ru")
 
 datasets = {}
 for path in paths:
@@ -42,7 +42,7 @@ for scored_model, scored_passages in datasets.items():
             passage=scored_passage
         )
 
-        score: float = iou(
+        score: float = ioc(
             y_true=golden_facts,
             y_pred=models_facts
         )

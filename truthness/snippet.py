@@ -1,6 +1,6 @@
 from truthness.facts import extract
 from truthness.utils import get_model
-from truthness.metrics import IntersectionOverUnionMetric
+from truthness.metrics import IntersectionOverCartesianMetric
 
 model = get_model(model_name="gpt-4o-mini")
 
@@ -26,9 +26,9 @@ models_facts: list[str] = extract(
 print(f"• Ground-truth Facts: {ground_truth_facts}")
 print(f"• Model's Facts: {models_facts}")
 
-iou = IntersectionOverUnionMetric(model=model, language="ru")
+ioc = IntersectionOverCartesianMetric(model=model, language="ru")
 
-score: float = iou(
+score: float = ioc(
     y_true=ground_truth_facts,
     y_pred=models_facts
 )
