@@ -1,0 +1,17 @@
+# name: str
+#     model_name: str
+#     endpoints: default to null
+#         - api_base: str
+#           api_key: str
+#           api_version: str optional (only for azure)
+#     api_type: str
+#     tokenizer: str optional (to optimize token limits)
+
+
+gpt-4o-mini:
+    model_name: gpt-4o-mini
+    endpoints:
+        - api_base: https://api.openai.com/v1/
+          api_key: ...
+    api_type: openai
+
