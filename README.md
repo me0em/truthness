@@ -24,4 +24,4 @@ poetry install
 
 ### How to use
 
-`this chapter in progress rn`
+`this chapter is in progress rn`
