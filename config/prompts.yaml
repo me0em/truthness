@@ -21,3 +21,17 @@ extraction:
     ```json
     {"facts": ["...", ...]}
     ```
+
+facts_equal:
+  en: >
+    Are two facts strictly identical in meaning?
+    Output the answer in JSON format, for example:
+    ```json
+    {“answer”: true}
+    ```
+  ru: >
+    Являются ли два факта строго идентичными по смыслу?
+    Выведи ответ в формате JSON, например:
+    ```json
+    {"answer": true}
+    ```
