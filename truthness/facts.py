@@ -2,7 +2,7 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.output_parsers import StrOutputParser
 
-from truthness.utils import load_config
+from truthness.utils import CustomJSONParser, load_config
 
 
 def extract(passage: str,
@@ -20,7 +20,7 @@ def extract(passage: str,
     """
     prompts_hub = load_config("config/prompts.yaml")
     system_prompt: str = prompts_hub.extraction.get(language)
-    parser = StrOutputParser()
+    parser = CustomJSONParser()
 
     messages = [
         SystemMessage(content=system_prompt),
@@ -29,4 +29,6 @@ def extract(passage: str,
 
     chain = model | parser
 
-    return chain.invoke(messages)
+    output = chain.invoke(messages)
+
+    return output["facts"]
