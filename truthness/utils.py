@@ -1,5 +1,7 @@
+import os
 import json
 import re
+import glob
 
 import yaml
 from box import Box
@@ -48,3 +50,27 @@ def get_model(model_name: str) -> BaseChatModel:
                 f"Model {model_name} not implemented."
                  "You can add it by yourself, check utils.get_model"
             )
+
+
+def get_golden_passages(path="data/golden.json") -> list[str]:
+    if not os.path.isfile(path):
+        raise Exception(f"Golden dataset is not founded at {path}")
+
+    with open(path, "r") as file:
+        golden_passages = json.load(file)["passages"]
+    
+    return golden_passages
+
+
+def get_datasets_for_eval() -> dict[str, list[str]]:
+    paths = glob.glob("data/*.json")
+    paths = [path for path in paths if path.split("/")[-1] != "golden.json"]
+
+    datasets = {}
+
+    for path in paths:
+        with open(path, "r") as file:
+            dataset = json.load(file)
+            datasets[dataset["actor"]] = dataset["passages"]
+
+    return datasets
