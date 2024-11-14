@@ -9,6 +9,7 @@ from box import Box
 from langchain_core.language_models import BaseChatModel
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.rate_limiters import InMemoryRateLimiter
 
 
 def load_config(path: str) -> Box:
@@ -37,13 +38,18 @@ class CustomJSONParser(StrOutputParser):
 
 
 def get_model(model_name: str) -> BaseChatModel:
+    rate_limiter = InMemoryRateLimiter(
+        requests_per_second=5,  # 1 req every 200ms
+        check_every_n_seconds=0.1  # check every 100ms
+    )
+
     match model_name:
         case "gpt-4o-mini":
-            return ChatOpenAI(model=model_name)
+            return ChatOpenAI(model=model_name, rate_limiter=rate_limiter)
         case "gpt-4o":
-            return ChatOpenAI(model=model_name)
+            return ChatOpenAI(model=model_name, rate_limiter=rate_limiter)
         case "gpt-3.5-turbo":
-            return ChatOpenAI(model=model_name)
+            return ChatOpenAI(model=model_name, rate_limiter=rate_limiter)
 
         case _:
             raise NotImplementedError(
