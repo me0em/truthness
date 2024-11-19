@@ -39,9 +39,12 @@ class CustomJSONParser(StrOutputParser):
 
 def get_model(model_name: str) -> BaseChatModel:
     rate_limiter = InMemoryRateLimiter(
-        requests_per_second=5,  # 1 req every 200ms
+        requests_per_second=2,  # 1 req every 500ms
         check_every_n_seconds=0.1  # check every 100ms
     )
+
+    # Attention: I use highest API plan now
+    rate_limiter = None
 
     match model_name:
         case "gpt-4o-mini":

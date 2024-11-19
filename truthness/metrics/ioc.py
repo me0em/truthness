@@ -1,4 +1,5 @@
 import json
+from tqdm import tqdm
 
 from langchain_core.messages import HumanMessage, SystemMessage
 
@@ -24,23 +25,27 @@ class IntersectionOverCartesianMetric(Metric):
         system_prompt = self.prompts.facts_equal.get(self.language)
 
         correctness = []
-        for y in y_true:
-            for y_hat in y_pred:
-                facts = {"fact_1": y, "fact_2": y_hat}
-                facts = json.dumps(facts, ensure_ascii=False)
+        with tqdm(total=len(y_pred)*len(y_true),
+                  desc="IoC") as pbar:
+            for y in y_true:
+                for y_hat in y_pred:
+                    facts = {"fact_1": y, "fact_2": y_hat}
+                    facts = json.dumps(facts, ensure_ascii=False)
 
-                messages = [
-                    SystemMessage(content=system_prompt),
-                    HumanMessage(content=facts),
-                ]
+                    messages = [
+                        SystemMessage(content=system_prompt),
+                        HumanMessage(content=facts),
+                    ]
 
-                try:
-                    output = chain.invoke(messages)
-                    answer = output["answer"]
-                    correctness.append(answer)
-                except Exception as error:
-                    print(f"Get the error. Count this facts comparing as 0. Error: {repr(error)}")
-                    correctness.append(0)
+                    try:
+                        output = chain.invoke(messages)
+                        answer = output["answer"]
+                        correctness.append(answer)
+                    except Exception as error:
+                        print(f"Get the error. Count this facts comparing as 0. Error: {repr(error)}")
+                        correctness.append(0)
+
+                    pbar.update(1)
 
         score = sum(correctness) / (len(correctness) + 1e-6)
 

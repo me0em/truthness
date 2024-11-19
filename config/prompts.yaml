@@ -35,3 +35,17 @@ facts_equal:
     ```json
     {"answer": true}
     ```
+
+isin_system:
+  en: >
+    Is a fact identical in meaning to fact `f` contained in the set of facts `A`?
+    Output the answer in JSON format, for example:
+    ```json
+    {“answer”: true}
+    ```
+  ru: >
+    Содержится ли факт, идентичный по смыслу факту `f`, в наборе фактов `A`?
+    Выведи ответ в формате JSON, например:
+    ```json
+    {"answer": true}
+    ```
