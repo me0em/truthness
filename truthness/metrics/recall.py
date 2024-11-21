@@ -10,7 +10,7 @@ from truthness.utils import CustomJSONParser, load_config
 
 
 class RecallMetric(Metric):
-    """ Precision:
+    """ Recall:
     """
     def __init__(self, njobs=1, *args, **kwargs):
         super().__init__(*args, **kwargs)
