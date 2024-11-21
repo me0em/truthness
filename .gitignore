@@ -4,3 +4,4 @@ __pycache__
 journals/*
 results/*
 data/*
+data_test/*
